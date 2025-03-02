@@ -19,7 +19,7 @@ exports.postCreateUser = async (req, res) => {
                 else {
                     const user = new User({ name: name, email: email, password: hash });
                     await user.save();
-                    res.status(201).json(user);
+                    res.status(200).json(user);
                 }
             });
         }

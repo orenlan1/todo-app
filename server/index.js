@@ -21,13 +21,6 @@ app.use('/users', authRouter);
 app.use('/todos', todosRouter);
 
 
-// mongoConnect(client => {
-//   console.log(client);
-//   app.listen(port, () => {
-//     console.log(`Server is running on port ${port}`);
-//   });
-// });
-
 mongoose.connect(mongoUri, {
   autoSelectFamily: false,
 })
@@ -42,6 +35,3 @@ mongoose.connect(mongoUri, {
 });
 
 
-// app.listen(port, () => {
-//   console.log(`Server is running on port ${port}`);
-// });
