@@ -9,7 +9,7 @@ exports.postCreateUser = async (req, res) => {
         const { name, email, password } = req.body;
         const userExist = await User.findOne({ email: email });
         if (userExist) {
-            return res.status(400).json({ message: 'User already exists' });
+            return res.status(409).json({ message: 'User already exists' });
         }
         else {
             bcrypt.hash(password, saltRounds, async (err, hash) => {

@@ -4,8 +4,11 @@ const todosRouter = require('./routes/Todos');
 const authRouter = require('./routes/Authentication');
 const mongoConnect = require('./db');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
+
+app.use(cors({ origin: "http://localhost:5173" }));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());

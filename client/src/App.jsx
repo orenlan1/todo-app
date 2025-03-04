@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import Login from './Login.jsx'
-
+import Login from './components/Login.jsx'
+import HomeAuthentication from './pages/HomeAuthentication.jsx'
 
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      <Login />
+        <HomeAuthentication/>
     </>
   )
 }
