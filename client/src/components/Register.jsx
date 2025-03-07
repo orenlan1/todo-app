@@ -3,16 +3,20 @@ import axios from "axios";
 
 function Register({toggleForm}) {
 
+    const [message, setMessage] = useState("");
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData);
         try {
             const response = await axios.post("http://localhost:3000/users/register", data);
+            toggleForm();
             console.log(response);
         } catch (error) {
             if (error.response) {
                 console.error("Error: ", error.response.data.message);
+                setMessage(error.response.data.message);
             }
             else {
                 console.error("Error: ", error);
@@ -37,6 +41,9 @@ function Register({toggleForm}) {
             <div className="flex flex-col my-5">
                 <label htmlFor="password">Password:</label>
                 <input className='p-2 border rounded-md border-slate-400' type="password" id="password" name="password" placeholder='Enter password' required />
+            </div>
+            <div className="text-red-500 text-center">
+                <p>{message}</p>
             </div>
             <div className='text-center mt-10'>
                 <button className=" bg-slate-700 text-white hover:bg-slate-800 w-full h-10 rounded-md"
