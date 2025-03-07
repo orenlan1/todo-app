@@ -1,12 +1,36 @@
 import { useState } from 'react';
+import axios from 'axios';
 
-function Login({ toggleForm }) {
+function Login({ toggleForm, setUserId }) {
+
+    const [message, setMessage] = useState('');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData);
+        try {
+            const response = await axios.post('http://localhost:3000/users/login', data);
+            console.log(response.data);
+            setUserId(response.data.userId);
+            
+        } catch (error) {
+            if (error.response) {
+                console.error('Error: ', error.response.data.message);
+                setMessage(error.response.data.message);
+            }
+            else {
+                console.error('Error: ', error);
+            }
+        }
+    }
+
 
     return (
         <div className="flex flex-col h-96 w-80 border-2 border-solid
           rounded-lg bg-gray-200 p-5">
             <h1 className="text-center text-3xl ">Login</h1>
-            <form action="/login" method="POST">
+            <form action="/login" method="POST" onSubmit={handleSubmit}>
                 <div className="flex flex-col my-5">
                     <label htmlFor="email">Email:</label>
                     <input className='p-2 border rounded-md border-slate-400' type="email" id="email" name="email" placeholder='Enter email' required />
@@ -18,6 +42,9 @@ function Login({ toggleForm }) {
                 <div className='text-center mt-10'>
                     <button className="bg-slate-700 text-white hover:bg-slate-800 w-full h-10 rounded-md"
                      type="submit">Sign In</button>
+                </div>
+                <div className='text-red-500 text-center'>
+                    <p>{message}</p>
                 </div>
             </form>
             <div className="flex justify-center items-center mt-5">
