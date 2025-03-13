@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const todosRouter = require('./routes/Todos');
 const authRouter = require('./routes/Authentication');
-const mongoConnect = require('./db');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
