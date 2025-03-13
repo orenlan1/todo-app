@@ -4,7 +4,7 @@ import axios from 'axios';
 import Todo from '../components/Todo';
 import Modal from '../components/Modal';
 
-function TodosPage({userId}) {
+function TodosPage({userId, setUserId}) {
     
     const [todos, setTodos] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -42,9 +42,19 @@ function TodosPage({userId}) {
 
     useEffect(() => {
         const fetchTodos = async () => {
-            const res = await axios.get('http://localhost:3000/todos/' + userId);
-            console.log(res.data);
-            setTodos(res.data);
+            try {
+                const res = await axios.get('http://localhost:3000/todos/' + userId);
+                console.log(res.data);
+                if (Array.isArray(res.data)) {
+                    setTodos(res.data);
+                } else {
+                    setTodos([]); 
+                }
+            } catch (error) {
+                console.error("Error fetching todos:", error);
+                setTodos([]); 
+            }
+        
         }
         fetchTodos();
 
