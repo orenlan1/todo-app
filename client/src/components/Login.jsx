@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { FaUser } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
 
 function Login({ toggleForm, setUserId }) {
 
@@ -33,11 +35,21 @@ function Login({ toggleForm, setUserId }) {
             <form action="/login" method="POST" onSubmit={handleSubmit}>
                 <div className="flex flex-col my-5">
                     <label htmlFor="email">Email:</label>
-                    <input className='p-2 border rounded-md border-slate-400' type="email" id="email" name="email" placeholder='Enter email' required />
+                    <div className="relative">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                            <FaUser className="text-gray-400" />
+                        </span>
+                        <input className='p-2 pl-10 border rounded-md border-slate-400 w-full' type="email" id="email" name="email" placeholder='Enter email' required />
+                    </div>
                 </div>
                 <div className="flex flex-col my-5">
                     <label htmlFor="password">Password:</label>
-                    <input className='p-2 border rounded-md border-slate-400' type="password" id="password" name="password" placeholder='Enter password' required />
+                    <div className="relative">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                            <FaLock className="text-gray-400" />
+                        </span>
+                        <input className='p-2 pl-10 border rounded-md border-slate-400 w-full' type="password" id="password" name="password" placeholder='Enter password' required />
+                    </div>
                 </div>
                 <div className='text-center mt-10'>
                     <button className="bg-slate-700 text-white hover:bg-slate-800 w-full h-10 rounded-md"

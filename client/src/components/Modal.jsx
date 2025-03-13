@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 function Modal({todo, editTodo, addNewTodo, onClose }) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         if (todo) {
@@ -12,6 +13,10 @@ function Modal({todo, editTodo, addNewTodo, onClose }) {
     }, [todo]);
 
     const handleSubmit = () => {
+        if ( title === "" || description === "") {
+            setErrorMessage("Please fill in all fields!");
+            return;
+        }
         if (todo) {
             // If editing, call editTodo with updated data
             editTodo(todo._id, title, description);
@@ -40,24 +45,26 @@ function Modal({todo, editTodo, addNewTodo, onClose }) {
                     placeholder="Enter task description"
                     className="w-full border p-2 rounded-md mb-4 h-44"
                 ></textarea>
-                <div className="flex justify-end gap-2">
-                    <button
-                        className="bg-gray-500 text-white px-4 py-2 rounded-md"
-                        onClick={onClose} 
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        className="bg-blue-500 text-white px-4 py-2 rounded-md"
-                        onClick={handleSubmit}
-                        // onClick={() => {
-                        //     addNewTodo(title, description);
-                        //     onClose();
-                        // }} 
-                    >
-                        {todo? "Update" : "Save"}
-                    </button>
+              
+              <div className="flex justify-between items-center">
+                    <span className="text-red-500">{errorMessage}</span>
+                    <div className="flex gap-2">
+                        <button
+                            className="bg-gray-500 text-white px-4 py-2 rounded-md"
+                            onClick={onClose}
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                            onClick={handleSubmit}
+                        >
+                            {todo ? "Update" : "Save"}
+                        </button>
+                    </div>
                 </div>
+               
+            
             </div>
         </div>
     );
