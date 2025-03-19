@@ -2,7 +2,7 @@ import { useState } from "react";
 import Login from "../components/Login";
 import Register from "../components/Register";
 
-function HomeAuthentication({setUserId}) {
+function HomeAuthentication({setIsAuthenticated}) {
     const [isSignUp, setIsSignUp] = useState(false);
     const toggleForm = () => {
         setIsSignUp(!isSignUp);
@@ -10,7 +10,7 @@ function HomeAuthentication({setUserId}) {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-slate-700">
-        {isSignUp ? <Register toggleForm={toggleForm}/> : <Login setUserId={setUserId} toggleForm={toggleForm}/>}
+        {isSignUp ? <Register toggleForm={toggleForm}/> : <Login setIsAuthenticated={setIsAuthenticated}  toggleForm={toggleForm}/>}
     </div>
   );
 }
