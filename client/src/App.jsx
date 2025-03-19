@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-        {userId === ""? <HomeAuthentication setUserId= {(id) => setUserId(id)}/> : <TodosPage userId={userId}/>} 
+        {userId === ""? <HomeAuthentication setUserId= {(id) => setUserId(id)}/> : <TodosPage setUserId={setUserId} userId={userId}/>} 
     </>
   )
 }
