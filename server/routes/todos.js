@@ -4,7 +4,7 @@ const todoController = require('../controllers/TodoController');
 
 const router = express.Router(); 
 
-router.get('/:id', todoController.getAllTodos);
+router.get('/', todoController.getAllTodos);
 
 router.post('/create', todoController.postCreateTodo);
 
