@@ -41,7 +41,8 @@ exports.postLogin = async (req, res) => {
                     console.log(err);
                 }
                 if (result) {
-                    res.status(200).json({ message: 'Login successful', userId: user._id });
+                    req.session.userId = user._id;
+                    res.status(200).json({ message: 'Logged in successfully', userId: user._id });
                 }
                 else {
                     res.status(400).json({ message: 'Invalid password!' });
@@ -53,3 +54,21 @@ exports.postLogin = async (req, res) => {
         console.log(err);
     }
 }
+
+exports.postLogout = async (req, res) => {
+    try {
+        req.session.destroy((err) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.clearCookie('connect.sid');
+                res.status(200).json({ message: 'Logged out successfully' });
+            }
+        });
+    } catch (err) {
+        console.log(err);
+    }
+}
+   
+

@@ -5,6 +5,11 @@ import { FaLock } from "react-icons/fa";
 
 function Login({ toggleForm, setUserId }) {
 
+    const api = axios.create({
+        baseURL: 'http://localhost:3000',
+        withCredentials: true,
+    });
+
     const [message, setMessage] = useState('');
 
     const handleSubmit = async (e) => {
@@ -12,7 +17,13 @@ function Login({ toggleForm, setUserId }) {
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData);
         try {
-            const response = await axios.post('http://localhost:3000/users/login', data);
+            // const response = await axios.post('http://localhost:3000/users/login', data);
+            api.post('/users/login', data)
+            .then(response => {
+                console.log(response.data)
+                setUserId(response.data.userId);
+            })
+            .catch(error => {console.error(error)});
             console.log(response.data);
             setUserId(response.data.userId);
             
