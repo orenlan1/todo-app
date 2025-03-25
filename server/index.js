@@ -6,6 +6,8 @@ const todosRouter = require('./routes/Todos');
 const authRouter = require('./routes/Authentication');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const app = express();
 
@@ -14,13 +16,14 @@ app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
-const mongoUri = 'mongodb+srv://lanoren1:FUJCN82iTsmTzCSy@cluster0.zhyz4.mongodb.net/todo_app?retryWrites=true&w=majority&appName=Cluster0';
+
+const mongoConnectionString = process.env.MONGO_CONNECTION_STRING;
 
 
 const port = 3000;
 
 
-mongoose.connect(mongoUri, {
+mongoose.connect(mongoConnectionString, {
   autoSelectFamily: false,
 })
 .then(() => {
@@ -38,7 +41,7 @@ mongoose.connect(mongoUri, {
   // Set up session middleware
   app.use(
     session({
-      secret: "secretKey",
+      secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
       store: store,
