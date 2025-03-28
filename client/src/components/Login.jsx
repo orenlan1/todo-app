@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaUser, FaLock } from "react-icons/fa";
 
-function Login({ setIsAuthenticated }) {
+function Login({ setIsAuthenticated, toggleForm }) {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
@@ -59,6 +59,14 @@ function Login({ setIsAuthenticated }) {
           <p>{message}</p>
         </div>
       </form>
+      <div className="flex justify-center items-center mt-5">
+        <span>
+          Don't have an account?
+        </span>
+        <button className="text-slate-700 text-md hover:text-slate-400" onClick={toggleForm}>
+          &nbsp;Sign Up
+        </button>
+      </div>
     </div>
   );
 }
