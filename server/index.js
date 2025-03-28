@@ -29,16 +29,16 @@ mongoose.connect(mongoConnectionString, {
 .then(() => {
   console.log("✅ Connected to MongoDB");
 
-  // Get the native MongoDB client from Mongoose
+  
   const mongoClient = mongoose.connection.getClient();
 
-  // Configure session store using the Mongoose client
+
   const store = MongoStore.create({
-    client: mongoClient, // Pass the native MongoDB client
+    client: mongoClient, 
     collectionName: 'sessions',
   });
 
-  // Set up session middleware
+  
   app.use(
     session({
       secret: process.env.SESSION_SECRET,
